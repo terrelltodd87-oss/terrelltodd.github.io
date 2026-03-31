@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terrell Todd — Builder & Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0b10;
+  --surface: #13131c;
+  --border: #22223a;
+  --accent: #f0a500;
+  --teal: #00c9a7;
+  --text: #e4e4f0;
+  --muted: #7070a0;
+  --tag-bg: #1c1c2e;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background: rgba(11,11,16,0.9);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--text); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(240,165,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,165,0,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 40% 50%, black 30%, transparent 100%);
+}
+.glow1 {
+  position: absolute; width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 65%);
+  top: 0; left: -200px; pointer-events: none;
+}
+.glow2 {
+  position: absolute; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,201,167,0.06) 0%, transparent 65%);
+  bottom: 0; right: 0; pointer-events: none;
+}
+.hero-inner {
+  position: relative;
+  max-width: 820px;
+}
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 .gold { color: var(--accent); }
+.hero h1 .teal { color: var(--teal); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 540px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+.hero-sub strong { color: var(--text); }
+.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn-gold {
+  background: var(--accent);
+  color: #0b0b10;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(240,165,0,0.35); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--muted); }
+
+.hero-stats {
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  text-align: right;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* SECTION */
+.section-wrap {
+  padding: 6rem 3rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 3rem;
+}
+.sec-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.sec-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+  line-height: 1.15;
+}
+
+/* CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--card-color, var(--accent));
+  padding: 1.75rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--card-color, var(--teal));
+  animation: blink 2.5s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.status-txt {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--card-color, var(--teal));
+}
+.card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+.card-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--card-color, var(--accent));
+  margin-bottom: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+.tag {
+  background: var(--tag-bg);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  padding: 0.2rem 0.55rem;
+  letter-spacing: 0.05em;
+}
+.card-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.clink {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--card-color, var(--accent));
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: opacity 0.2s;
+}
+.clink:hover { opacity: 0.75; }
+.clink::after { content: '→'; }
+.clink.beta {
+  border: 1px solid rgba(0,201,167,0.35);
+  padding: 0.28rem 0.65rem;
+  color: var(--teal);
+}
+.clink.beta::after { content: ''; }
+
+/* DEV GRID */
+.dev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1rem;
+}
+.dev-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.dev-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.dev-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.dev-card p {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.dev-foot { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  border: 1px solid rgba(240,165,0,0.3);
+  color: var(--accent);
+  padding: 0.2rem 0.55rem;
+  letter-spacing: 0.07em;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-text p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+.about-text strong { color: var(--text); }
+.stack-group { margin-bottom: 1.75rem; }
+.stack-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.67rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+.stack-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.pill {
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.28rem 0.65rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+
+/* CONTACT */
+.contact-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.contact-box::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-box h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+.contact-box p {
+  color: var(--muted);
+  max-width: 460px;
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+}
+.contact-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.75rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 780px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul { display: none; }
+  .hero { padding: 5.5rem 1.5rem 3rem; }
+  .hero-stats { display: none; }
+  .section-wrap { padding: 4rem 1.5rem; }
+  .divider { margin: 0 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-box { padding: 2rem 1.5rem; }
+  footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">TERRELL TODD</div>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#building">Building</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">// Full-Stack Developer &amp; Founder — Todd Logic LLC</p>
+    <h1>
+      I build apps<br>
+      <span class="gold">people use</span><br>
+      <span class="teal">every day.</span>
+    </h1>
+    <p class="hero-sub">
+      Self-taught developer shipping production apps in React Native, Node.js, and PostgreSQL.
+      Founder of <strong>Todd Logic LLC</strong> — consumer health, fintech, automotive, and civic tech.
+    </p>
+    <div class="cta-row">
+      <a href="#work" class="btn-gold">View Live Products</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">8+</div>
+      <div class="stat-lbl">Apps Shipped</div>
+    </div>
+    <div>
+      <div class="stat-num">6</div>
+      <div class="stat-lbl">Live Products</div>
+    </div>
+    <div>
+      <div class="stat-num">15+</div>
+      <div class="stat-lbl">Yrs Experience</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- LIVE WORK -->
+<div class="section-wrap" id="work">
+  <p class="sec-label">// Live Products</p>
+  <h2 class="sec-title">Shipped &amp; in the Wild</h2>
+
+  <div class="cards-grid">
+
+    <!-- Community Kitchen -->
+    <div class="card" style="--card-color:#00c9a7;">
+      <div class="card-top"><div class="dot"></div><span class="status-txt">Live · TestFlight</span></div>
+      <h3>Community Kitchen</h3>
+      <p class="card-sub">Food Safety &amp; Allergen Intelligence</p>
+      <p>Barcode scanner cross-referenced against household allergen profiles. Hidden Allergen Alias Dictionary, medication interaction checker (285+ meds), Nature's Pharmacy, and Produce Rx.</p>
+      <div class="tags">
+        <span class="tag">React Native</span><span class="tag">Expo</span>
+        <span class="tag">Supabase</span><span class="tag">RevenueCat</span><span class="tag">Barcode API</span>
+      </div>
+      <div class="card-links">
+        <a href="https://community-kitchen.replit.app" target="_blank" class="clink">Web Demo</a>
+        <a href="https://testflight.apple.com/join/paFfqGUR" target="_blank" class="clink beta">🍎 Join Beta on TestFlight</a>
+      </div>
+    </div>
+
+    <!-- Kinship Heritage -->
+    <a href="https://kinshipheritage.org" target="_blank" class="card" style="--card-color:#f0a500;">
+      <div class="card-top"><div class="dot" style="background:#f0a500;animation:none;"></div><span class="status-txt" style="color:#f0a500;">Live</span></div>
+      <h3>Kinship Heritage</h3>
+      <p class="card-sub">Family Genealogy &amp; Heritage Network</p>
+      <p>Full-stack genealogy social network with family trees, AI storytelling, secure document vault, biometric auth, raw DNA file upload (23andMe/Ancestry), and Heritage Roots content.</p>
+      <div class="tags">
+        <span class="tag">React</span><span class="tag">Node.js</span>
+        <span class="tag">PostgreSQL</span><span class="tag">AI Storytelling</span><span class="tag">DNA Upload</span>
+      </div>
+      <div class="card-links">
+        <span class="clink" style="color:#f0a500;">kinshipheritage.org</span>
+      </div>
+    </a>
+
+    <!-- Black Excellence Daily -->
+    <a href="https://blackexcellencebyus.netlify.app/" target="_blank" class="card" style="--card-color:#e05c2a;">
+      <div class="card-top"><div class="dot" style="background:#e05c2a;animation:none;"></div><span class="status-txt" style="color:#e05c2a;">Live · PWA</span></div>
+      <h3>Black Excellence Daily</h3>
+      <p class="card-sub">37,000 Years of Black History</p>
+      <p>Educational PWA with 423 excellence figures, 121 injustice events, live news API integration, and a timeline spanning ancient Africa to the present day.</p>
+      <div class="tags">
+        <span class="tag">PWA</span><span class="tag">Netlify</span><span class="tag">News API</span><span class="tag">JavaScript</span>
+      </div>
+      <div class="card-links">
+        <span class="clink" style="color:#e05c2a;">Visit Site</span>
+      </div>
+    </a>
+
+    <!-- MD People's Watch + Dashboard -->
+    <div class="card" style="--card-color:#6c8ebf;">
+      <div class="card-top"><div class="dot" style="background:#6c8ebf;animation:none;"></div><span class="status-txt" style="color:#6c8ebf;">Live · 2 Sites</span></div>
+      <h3>MD People's Watch</h3>
+      <p class="card-sub">Maryland Civic Accountability Platform</p>
+      <p>Tracks Maryland legislators, campaign finance, and live bills with a real-time session countdown. Companion People's Dashboard pulls 15+ FRED API economic metrics.</p>
+      <div class="tags">
+        <span class="tag">Netlify Functions</span><span class="tag">FRED API</span><span class="tag">JavaScript</span><span class="tag">Civic Tech</span>
+      </div>
+      <div class="card-links">
+        <a href="https://mdpeopleswatch.com/" target="_blank" class="clink" style="color:#6c8ebf;">MD Watch</a>
+        <a href="https://peoplesdashboard.netlify.app/" target="_blank" class="clink" style="color:#6c8ebf;">Dashboard</a>
+      </div>
+    </div>
+
+    <!-- People's Health Watch -->
+    <a href="https://thepeopleshealthwatch.com/" target="_blank" class="card" style="--card-color:#f06292;">
+      <div class="card-top"><div class="dot" style="background:#f06292;animation:none;"></div><span class="status-txt" style="color:#f06292;">Live</span></div>
+      <h3>The People's Health Watch</h3>
+      <p class="card-sub">Public Health Transparency</p>
+      <p>Live public health data platform surfacing the metrics that matter for working families — transparency and accountability in healthcare systems.</p>
+      <div class="tags">
+        <span class="tag">JavaScript</span><span class="tag">Netlify</span><span class="tag">Health API</span>
+      </div>
+      <div class="card-links">
+        <span class="clink" style="color:#f06292;">Visit Site</span>
+      </div>
+    </a>
+
+    <!-- Stertil-Koni -->
+    <div class="card" style="--card-color:#a78bfa;">
+      <div class="card-top"><div class="dot" style="background:#a78bfa;animation:none;"></div><span class="status-txt" style="color:#a78bfa;">Enterprise · Live</span></div>
+      <h3>Warranty Management Portal</h3>
+      <p class="card-sub">Stertil-Koni USA — 28 Distributors</p>
+      <p>Enterprise warranty portal with 3-tier approval workflow, 200+ flat-rate services, battery calculator, parts analytics, quarterly reconciliation, and Excel export across 5 regions.</p>
+      <div class="tags">
+        <span class="tag">Node.js</span><span class="tag">PostgreSQL</span>
+        <span class="tag">Heroku</span><span class="tag">Cloudinary</span><span class="tag">Multi-role Auth</span>
+      </div>
+      <div class="card-links">
+        <a href="https://stertil-koni-warranty-bb1391915e94.herokuapp.com/" target="_blank" class="clink" style="color:#a78bfa;">View Portal</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- IN DEVELOPMENT -->
+<div class="section-wrap" id="building">
+  <p class="sec-label">// In Development</p>
+  <h2 class="sec-title">What I'm Building Now</h2>
+  <div class="dev-grid">
+
+    <div class="dev-card">
+      <h3>YouWrench</h3>
+      <p class="dev-sub">You Wrench, We Teach</p>
+      <p>DIY automotive intelligence app. VIN-based repair guidance and step-by-step instructions. Three-tier model with wiring diagrams on Pro+.</p>
+      <div class="tags"><span class="tag">React Native</span><span class="tag">Auto.dev API</span><span class="tag">Supabase</span><span class="tag">RevenueCat</span></div>
+      <div class="dev-foot"><span class="badge">🔧 Beta</span></div>
+    </div>
+
+    <div class="dev-card">
+      <h3>Payclair</h3>
+      <p class="dev-sub">Bill Intelligence for Working Families</p>
+      <p>Fintech app with Plaid bank sync, Stripe ACH, paycheck gap alerts, virtual bill reserves, and AI coach Clair.</p>
+      <div class="tags"><span class="tag">Expo SDK 54</span><span class="tag">Plaid</span><span class="tag">Stripe</span><span class="tag">Drizzle ORM</span></div>
+      <div class="dev-foot"><span class="badge">💳 In Development</span></div>
+    </div>
+
+    <div class="dev-card">
+      <h3>Soul Food</h3>
+      <p class="dev-sub">AI-Powered Biblical Encouragement</p>
+      <p>Matches 400+ Bible verses across 50 life topics using OpenAI. The right word at the right time.</p>
+      <div class="tags"><span class="tag">Node.js</span><span class="tag">OpenAI</span><span class="tag">LemonSqueezy</span></div>
+      <div class="dev-foot">
+        <span class="badge">✝️ Submitted</span>
+        <a href="https://soul-food--terrelltodd87.replit.app/" target="_blank" class="clink" style="font-size:0.67rem;">View Demo</a>
+      </div>
+    </div>
+
+    <div class="dev-card">
+      <h3>Church Connect</h3>
+      <p class="dev-sub">Multi-Church SaaS Platform</p>
+      <p>Church management SaaS with AI devotions, prayer, events, small groups, media, live streaming, giving, and Bible reader. Six role types.</p>
+      <div class="tags"><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Stripe</span><span class="tag">Netlify</span></div>
+      <div class="dev-foot">
+        <span class="badge">⛪ In Development</span>
+        <a href="https://thechurchconnect.netlify.app/" target="_blank" class="clink" style="font-size:0.67rem;">View Demo</a>
+      </div>
+    </div>
+
+    <div class="dev-card">
+      <h3>In This Together</h3>
+      <p class="dev-sub">Couples Wellness Platform</p>
+      <p>AI conflict resolution (Whisper + Claude APIs), milestone games, date night browser, daily spiritual practices, and shared journals.</p>
+      <div class="tags"><span class="tag">React Native</span><span class="tag">Firebase</span><span class="tag">Claude API</span><span class="tag">Stripe</span></div>
+      <div class="dev-foot"><span class="badge">💑 Concept</span></div>
+    </div>
+
+    <div class="dev-card">
+      <h3>Letta Love</h3>
+      <p class="dev-sub">Daily Affirmations for Couples</p>
+      <p>Partner-paired affirmation app born from a personal 84-day affirmation plan. Invite code pairing and freemium model.</p>
+      <div class="tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">RevenueCat</span></div>
+      <div class="dev-foot"><span class="badge">💌 In Development</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <p class="sec-label">// About</p>
+  <h2 class="sec-title">Builder by necessity,<br>developer by choice.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm <strong>Terrell Todd</strong>, a self-taught full-stack developer based in <strong>Baltimore, MD</strong>. I came up through 15+ years in heavy equipment — DC Fire &amp; EMS, Herc Rentals, Stertil-Koni — learning how things break and how to fix them. That mindset carries into how I build software.</p>
+      <p>I taught myself to code using AI-assisted tools and shipped real products. Not demos. Not prototypes. Apps people use. I founded <strong>Todd Logic LLC</strong> to house a growing portfolio across health tech, fintech, automotive, civic tech, and faith-based spaces.</p>
+      <p>ASE certified. OSHA 10-hour certified. Pursuing ALI certification. Faith and community drive everything I build — technology should serve people, not just profit.</p>
+    </div>
+    <div>
+      <div class="stack-group">
+        <div class="stack-label">Frontend &amp; Mobile</div>
+        <div class="stack-pills">
+          <span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">React</span><span class="pill">HTML/CSS</span><span class="pill">JavaScript</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-label">Backend &amp; Data</div>
+        <div class="stack-pills">
+          <span class="pill">Node.js</span><span class="pill">Express</span><span class="pill">PostgreSQL</span><span class="pill">Supabase</span><span class="pill">Firebase</span><span class="pill">Drizzle ORM</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-label">AI &amp; Integrations</div>
+        <div class="stack-pills">
+          <span class="pill">OpenAI API</span><span class="pill">Claude API</span><span class="pill">Plaid</span><span class="pill">Stripe</span><span class="pill">RevenueCat</span><span class="pill">Cloudinary</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <div class="stack-label">Deploy &amp; Infra</div>
+        <div class="stack-pills">
+          <span class="pill">Netlify</span><span class="pill">Heroku</span><span class="pill">Replit</span><span class="pill">TestFlight</span><span class="pill">Google Play</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="section-wrap" id="contact">
+  <div class="contact-box">
+    <p class="sec-label">// Contact</p>
+    <h2>Let's build<br>something real.</h2>
+    <p>Open to full-time roles, contract work, and founding engineer opportunities at early-stage AI startups. I ship fast and own the product end to end.</p>
+    <div class="contact-btns">
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#101;&#114;&#114;&#101;&#108;&#108;&#116;&#111;&#100;&#100;&#56;&#55;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" class="btn-gold">Send Email</a>
+      <a href="https://www.linkedin.com/in/terrell-todd-890402149/" target="_blank" class="btn-outline">LinkedIn</a>
+      <a href="https://github.com/terrelltodd" target="_blank" class="btn-outline">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Terrell Todd — Todd Logic LLC</p>
+  <p>Baltimore, MD · Built with intention.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.card, .dev-card, .sec-title, .sec-label, .about-text, .contact-box').forEach(el => {
+  el.style.opacity = '0';
+  el.
